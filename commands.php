@@ -47,6 +47,11 @@ class CommandHandler {
         switch ($command[0]) {
             case 0:
                 /* Post */
+                if (!count($command) == 2) {
+                    return ['error' => 'INVALID_COMMAND', 'error_message' => 'Command length is not 2.'];
+                }
+                
+                $data = $commands[1];
                 break;
             case 1:
                 /* Tip */
