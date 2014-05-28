@@ -18,11 +18,11 @@ class CommandHandler {
     public function handle($transport) {
         /* Command Transport Sanity Checking. */
         if (!is_array($transport)) {
-            return ['error' => 'INVALID_COMMAND_TRANSPORT', 'error_message' => 'Command transport is not an array.'];
+            return array('error' => 'INVALID_COMMAND_TRANSPORT', 'error_message' => 'Command transport is not an array.');
         }
         
         if (!count($transport) == 2 && !count($transport) == 3) {
-            return ['error' => 'INVALID_COMMAND_TRANSPORT', 'error_message' => 'Command transport length is not 2 or 3.'];
+            return array('error' => 'INVALID_COMMAND_TRANSPORT', 'error_message' => 'Command transport length is not 2 or 3.');
         }
         
         /* Split up command transport. */
@@ -37,18 +37,18 @@ class CommandHandler {
         
         /* Command Sanity Checking. */
         if (!is_array($command)) {
-            return ['error' => 'INVALID_COMMAND', 'error_message' => 'Command is not an array.'];
+            return array('error' => 'INVALID_COMMAND', 'error_message' => 'Command is not an array.');
         }
         
         if (!count($command) == 2 && !count($command) == 4) {
-            return ['error' => 'INVALID_COMMAND', 'error_message' => 'Command length is not 2 or 4.'];
+            return array('error' => 'INVALID_COMMAND', 'error_message' => 'Command length is not 2 or 4.');
         }
         
         switch ($command[0]) {
             case 0:
                 /* Post */
                 if (!count($command) == 2) {
-                    return ['error' => 'INVALID_COMMAND', 'error_message' => 'Command length is not 2.'];
+                    return array('error' => 'INVALID_COMMAND', 'error_message' => 'Command length is not 2.');
                 }
                 
                 $data = $commands[1];
@@ -63,7 +63,7 @@ class CommandHandler {
                 /* Withdraw */
                 break;
             default:
-                 return ['error' => 'INVALID_COMMAND', 'error_message' => 'Command type not in [1, 2, 3, 4].'];
+                 return array('error' => 'INVALID_COMMAND', 'error_message' => 'Command type not in [1, 2, 3, 4].');
         }
     }
     
@@ -74,7 +74,7 @@ class CommandHandler {
      * @return array An array of responses from $this->handle.
      */
     public function handleMultiple($commmands) {
-        $results = [];
+        $results = array();
         foreach ($commands as $command) {
             $results.append($this->handle($command));
         }
